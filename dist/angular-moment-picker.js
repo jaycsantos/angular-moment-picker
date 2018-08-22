@@ -1,4 +1,4 @@
-/*! Angular Moment Picker - v0.10.2 - http://indrimuska.github.io/angular-moment-picker - (c) 2015 Indri Muska - MIT */
+/*! Angular Moment Picker - v0.10.3 - http://indrimuska.github.io/angular-moment-picker - (c) 2015 Indri Muska - MIT */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -209,7 +209,7 @@ var helpers_1 = __webpack_require__(8);
 var views_1 = __webpack_require__(13);
 var utility_1 = __webpack_require__(0);
 var templateHtml = __webpack_require__(6);
-var Directive = (function () {
+var Directive = /** @class */ (function () {
     function Directive($timeout, $sce, $log, $window, provider, $compile, $templateCache) {
         var _this = this;
         this.$timeout = $timeout;
@@ -245,6 +245,7 @@ var Directive = (function () {
             keyboard: '=?',
             showHeader: '=?',
             additions: '=?',
+            render: '&?',
             change: '&?',
             selectable: '&?'
         };
@@ -474,6 +475,12 @@ var Directive = (function () {
                         $scope.view.next.selectable = $scope.limits.isBeforeOrEqualMax(momentNext, $scope.view.precision());
                         $scope.view.next.label = _this.$sce.trustAsHtml($scope.view.next.selectable ? $scope.rightArrow : '&nbsp;');
                         $scope.view.title = $scope.views[$scope.view.selected].render();
+                        if (angular.isFunction($scope.render) && $attrs['render']) {
+                            $scope.$evalAsync(function () { return $scope.render({
+                                $selected: $scope.view.selected,
+                                $view: $scope.views[$scope.view.selected]
+                            }); });
+                        }
                     },
                     change: function (view) {
                         var nextView = $scope.views.all.indexOf(view), minView = $scope.views.all.indexOf($scope.minView), maxView = $scope.views.all.indexOf($scope.maxView);
@@ -696,7 +703,7 @@ exports.getOffset = function (element) {
 
 exports.__esModule = true;
 var angular = __webpack_require__(1);
-var Provider = (function () {
+var Provider = /** @class */ (function () {
     function Provider() {
         this.settings = {
             locale: 'en',
@@ -754,7 +761,7 @@ exports["default"] = Provider;
 
 exports.__esModule = true;
 var utility_1 = __webpack_require__(0);
-var DayView = (function () {
+var DayView = /** @class */ (function () {
     function DayView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
@@ -807,7 +814,7 @@ exports["default"] = DayView;
 
 exports.__esModule = true;
 var utility_1 = __webpack_require__(0);
-var DecadeView = (function () {
+var DecadeView = /** @class */ (function () {
     function DecadeView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
@@ -860,7 +867,7 @@ exports.__esModule = true;
 var angular = __webpack_require__(1);
 var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
-var HourView = (function () {
+var HourView = /** @class */ (function () {
     function HourView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
@@ -958,7 +965,7 @@ exports.MinuteView = minuteView_1["default"];
 exports.__esModule = true;
 var angular = __webpack_require__(1);
 var utility_1 = __webpack_require__(0);
-var MinuteView = (function () {
+var MinuteView = /** @class */ (function () {
     function MinuteView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
@@ -1037,7 +1044,7 @@ exports.__esModule = true;
 var angular = __webpack_require__(1);
 var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
-var MonthView = (function () {
+var MonthView = /** @class */ (function () {
     function MonthView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;
@@ -1096,7 +1103,7 @@ exports["default"] = MonthView;
 exports.__esModule = true;
 var moment = __webpack_require__(2);
 var utility_1 = __webpack_require__(0);
-var YearView = (function () {
+var YearView = /** @class */ (function () {
     function YearView($scope, $ctrl, provider) {
         this.$scope = $scope;
         this.$ctrl = $ctrl;

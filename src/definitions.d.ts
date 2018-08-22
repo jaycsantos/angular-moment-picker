@@ -33,6 +33,7 @@ export interface IDirectiveScope extends ng.IScope {
 		bottom?: string
 	};
 	change?: (context: any) => boolean;
+	render?: (context: any) => boolean;
 	selectable?: (context: any) => boolean;
 }
 

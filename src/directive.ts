@@ -35,6 +35,7 @@ export default class Directive implements ng.IDirective {
 		keyboard:    '=?',
 		showHeader:  '=?',
 		additions:   '=?',
+		render:      '&?',
 		change:      '&?',
 		selectable:  '&?'
 	};
@@ -273,6 +274,12 @@ export default class Directive implements ng.IDirective {
 					$scope.view.next.selectable = $scope.limits.isBeforeOrEqualMax(momentNext, $scope.view.precision());
 					$scope.view.next.label = this.$sce.trustAsHtml($scope.view.next.selectable ? $scope.rightArrow : '&nbsp;');
 					$scope.view.title = $scope.views[$scope.view.selected].render();
+					if ( angular.isFunction($scope.render) && $attrs['render']) {
+						$scope.$evalAsync(()=>$scope.render({
+							$selected: $scope.view.selected,
+							$view: $scope.views[$scope.view.selected],
+						}));
+					}
 				},
 				change: (view) => {
 					let nextView = $scope.views.all.indexOf(view),
