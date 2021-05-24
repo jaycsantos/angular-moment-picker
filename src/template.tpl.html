@@ -20,9 +20,11 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in views[view.selected].rows">
-                        <td ng-repeat="item in row track by item.index" ng-class="item.class" ng-bind="item.label"
+                        <td ng-repeat="item in row track by item.index" ng-class="item.class"
                             data="{{item.data}}"
-                            ng-click="!disabled && views[view.selected].set(item)"></td>
+                            ng-click="!disabled && views[view.selected].set(item)">
+                            <span ng-bind="item.label"></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
